@@ -6,7 +6,7 @@ Both files require several dependencies:
   2. Matplotlib
   3. OpenCV
 
-They also require access to library of code named formats. This is for parsing through a capture file. The library is not included in the repository.
+The imported library named "formats" is a private library of code that is used with this project. The files will not compile without it. This formats library is used to open and parse through the capture files to get the distance values.
 
 The capture files that are used by the python files are generated using a proprietary camera and software.
 
@@ -18,6 +18,4 @@ This will produce a numpy array file named Newbase.npy which will be used by New
 
 ```NewSeg.py full-path-to-capture-file```
 
-This will then perform background segmentation on the capture using Newbase.npy as the baseline. Any difference in pixel distance will show up as white.
-
-These files can be used for training a model.
+This will then perform background segmentation on the capture using Newbase.npy as the baseline. Any difference in pixel distance above a certain threshold will show up as white.
