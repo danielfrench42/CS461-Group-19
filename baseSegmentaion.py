@@ -1,4 +1,16 @@
 #!/usr/bin/env python3
+
+# This script will prepare a base image to be used with background segmentation
+# 1.	Read in capture file
+# 2.	Set to first frame where vehicle is empty
+# 3.	loop through steps 4-6 for each frame (Approx 10 frames)
+# 4.	Get indices where amplitude is less than 30
+# 5.	Set distance values to 0 at found indices
+# 6.	Add current frame to first_frame
+# 7.	Divide first frame by number of frames used to get average distance
+# 8.	Save first_frame as numpy array file
+
+
 import os
 import sys
 import numpy as np
@@ -18,9 +30,8 @@ def parse_args():
 	return parser.parse_args()
 
 def main():
-	# get capture files
+	# get capture file
 	args = parse_args()
-	
 	fileName = args.filename[0]
 	print(fileName)
 	
@@ -43,6 +54,7 @@ def main():
 	phaseConverter = postSettings.filterSettings.phaseConverter
     
 	first_frame = []
+	
 	# This will create an image for each frame. Appx 10 frames per second
 	for i in range(10):
 		#Frame iterator
@@ -68,8 +80,8 @@ def main():
 			
 	content = str(first_frame)
 	np.save("Newbase.npy", first_frame)		
-	frame = np.load("Newbase.npy", allow_pickle=True)
-	print(frame.shape)
+	#frame = np.load("Newbase.npy", allow_pickle=True)
+	#print(frame.shape)
 
 if __name__ == '__main__':
 	main()
